@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #root { height: 100%; }
+body {
+  margin: 0;
+  background: #050A14;
+  color: #EAF2FF;
+  font-family: 'Pixelify Sans', sans-serif;
+  -webkit-font-smoothing: none;
+  user-select: none;
+}
+button { cursor: pointer; font: inherit; }
+button:disabled { cursor: not-allowed; }
+:focus-visible { outline: 3px dashed #3DE8FF; outline-offset: 3px; }
+
+.dots { background: #050A14 radial-gradient(circle, #13233F 1.5px, transparent 2px) 0 0 / 32px 32px; }
+
+/* stepped pixel corners */
+.px { clip-path: polygon(4px 0,calc(100% - 4px) 0,calc(100% - 4px) 4px,100% 4px,100% calc(100% - 4px),calc(100% - 4px) calc(100% - 4px),calc(100% - 4px) 100%,4px 100%,4px calc(100% - 4px),0 calc(100% - 4px),0 4px,4px 4px); }
+.px8 { clip-path: polygon(8px 0,calc(100% - 8px) 0,calc(100% - 8px) 4px,calc(100% - 4px) 4px,calc(100% - 4px) 8px,100% 8px,100% calc(100% - 8px),calc(100% - 4px) calc(100% - 8px),calc(100% - 4px) calc(100% - 4px),calc(100% - 8px) calc(100% - 4px),calc(100% - 8px) 100%,8px 100%,8px calc(100% - 4px),4px calc(100% - 4px),4px calc(100% - 8px),0 calc(100% - 8px),0 8px,4px 8px,4px 4px,8px 4px); }
+
+.btn-cyan { background: #3DE8FF; color: #050A14; box-shadow: inset 0 -8px 0 #1C7FD6, inset 0 6px 0 #B8F6FF; }
+.btn-amber { background: #FFB020; color: #1A1206; box-shadow: inset 0 -8px 0 #8A5A00, inset 0 6px 0 #FFE3A3; }
+.btn-dark { background: #11203A; color: #EAF2FF; box-shadow: inset 0 -6px 0 #0A1426; }
+.press:active:not(:disabled) { transform: translateY(3px); }
+
+@keyframes shake { 0%{transform:translate(0,0)} 20%{transform:translate(-10px,2px)} 40%{transform:translate(10px,-2px)} 60%{transform:translate(-6px,0)} 80%{transform:translate(6px,0)} 100%{transform:translate(0,0)} }
+.shake { animation: shake .32s steps(5); }
+@keyframes punch { 0%{transform:scale(1.7)} 50%{transform:scale(.9)} 100%{transform:scale(1)} }
+.punch { animation: punch .35s steps(3); }
+@keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+.bob { animation: bob 1.2s steps(4) infinite; }
+@keyframes hop { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-18px)} }
+.hop { animation: hop .45s steps(3) infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.25} }
+.blink { animation: blink 1s steps(2) infinite; }
+@keyframes flash { 0%{opacity:.55} 100%{opacity:0} }
+.flash { animation: flash .25s steps(3) forwards; }
+@keyframes pop { 0%{transform:scale(.6)} 60%{transform:scale(1.12)} 100%{transform:scale(1)} }
+.pop { animation: pop .3s steps(3); }
+@keyframes confetti { 0%{transform:translate(0,0)} 100%{transform:translate(var(--dx),var(--dy)); opacity:0} }
+.confetti { position:absolute; width:10px; height:10px; animation: confetti .9s steps(6) forwards; }
+@keyframes flyL { to { transform: translateX(-140%) rotate(-12deg); opacity: 0 } }
+@keyframes flyR { to { transform: translateX(140%) rotate(12deg); opacity: 0 } }
+.flyL { animation: flyL .25s steps(3) forwards; }
+.flyR { animation: flyR .25s steps(3) forwards; }
+
+/* particle jiggle per state */
+@keyframes vib { 0%,100%{transform:translate(0,0)} 50%{transform:translate(1px,-1px)} }
+@keyframes slide { 0%,100%{transform:translate(0,0)} 33%{transform:translate(5px,3px)} 66%{transform:translate(-4px,5px)} }
+@keyframes zoom { 0%,100%{transform:translate(0,0)} 25%{transform:translate(18px,-10px)} 50%{transform:translate(-8px,16px)} 75%{transform:translate(-16px,-12px)} }
+.p-solid { animation: vib .4s steps(2) infinite; }
+.p-liquid { animation: slide 1.6s steps(6) infinite; }
+.p-gas { animation: zoom 1.8s steps(8) infinite; }
+
+.reduce-motion *, .reduce-motion *::before, .reduce-motion *::after { animation-duration: 0s !important; animation-iteration-count: 1 !important; }
