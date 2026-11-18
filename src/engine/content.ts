@@ -117,6 +117,12 @@ const SUBSTANCES = [
   { name: 'nitrogen', mp: -210, bp: -196, min: -230, max: -170, step: 2, b: 0.7 },
   { name: 'mercury', mp: -39, bp: 357, min: -80, max: 400, step: 5, b: 0.5 },
 ];
+/** Explanation for "what state is it at T" questions. Always shows the real numbers on a number line. */
+function readWhy(s: { name: string; mp: number; bp: number }, t: number, ans: State): string {
+  const line = ans === 'solid' ? `${t} °C < ${s.mp} °C (melting point)` : ans === 'liquid' ? `${s.mp} °C (melts) < ${t} °C < ${s.bp} °C (boils)` : `${t} °C > ${s.bp} °C (boiling point)`;
+  const trap = ans === 'liquid' && t < 0 && s.name !== 'water' ? ` Below 0 °C doesn’t mean frozen: 0 °C is only WATER’s melting point. ${s.name[0].toUpperCase() + s.name.slice(1)} melts at ${s.mp} °C.` : ans === 'gas' && t < 0 ? ` Even below 0 °C it’s already past its boiling point.` : '';
+  return `${line}, so ${s.name} is a ${ans}.${trap}`;
+}
 const stateAt = (s: { mp: number; bp: number }, t: number): State => (t < s.mp ? 'solid' : t < s.bp ? 'liquid' : 'gas');
 
 const TRANSITIONS: { from: State; to: State; name: string; heat: 'L' | 'R'; b: number }[] = [
@@ -245,7 +251,7 @@ add('states-read', 'states', 3, 0.3, (rng) => {
     kind: 'phase', mode: 'read', substance: s, min: s.min, max: s.max, step: s.step, temp: t, answer: ans, b: s.b,
     prompt: `${cap(s.name)} melts at ${s.mp} °C and boils at ${s.bp} °C. At ${t} °C it is a…`,
     hint: 'Below the melting point: solid. Between the two: liquid. Above boiling: gas.',
-    why: `${t} °C is ${ans === 'solid' ? 'below the melting point' : ans === 'liquid' ? 'between the melting and boiling points' : 'above the boiling point'}, so ${s.name} is a ${ans}.`,
+    why: readWhy(s, t, ans),
   };
 });
 add('states-master', 'states', 4, 0.9, (rng) => {
@@ -296,7 +302,7 @@ add('phase-read', 'phase', 3, 0.4, (rng) => {
     kind: 'phase', mode: 'read', substance: s, min: s.min, max: s.max, step: s.step, temp: t, answer: ans, b: s.b + 0.3,
     prompt: `${cap(s.name)} is at ${t} °C. Melting point ${s.mp} °C, boiling point ${s.bp} °C. What state is it?`,
     hint: 'Compare the temperature with both points.',
-    why: `${t} °C is ${ans === 'solid' ? 'below' : ans === 'liquid' ? 'between' : 'above'} ${ans === 'liquid' ? 'the two points' : ans === 'solid' ? 'the melting point' : 'the boiling point'}, so it’s a ${ans}.`,
+    why: readWhy(s, t, ans),
   };
 });
 add('phase-master', 'phase', 4, 1.0, (rng) => {
