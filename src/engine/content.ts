@@ -1,4 +1,4 @@
-import type { ConceptId, Diagram, Question, Rung, State } from './types';
+import type { ConceptId, ConceptInfo, Diagram, Question, Rung, State } from './types';
 
 export type Rng = () => number;
 export const pick = <T,>(rng: Rng, xs: readonly T[]): T => xs[Math.floor(rng() * xs.length)];
@@ -22,19 +22,10 @@ export function mulberry32(seed: number): Rng {
 
 /* ---------- concepts ---------- */
 
-export interface ConceptInfo {
-  id: ConceptId;
-  name: string;
-  short: string;
-  card: string; // element symbol won on mastery
-  watchTitle: string;
-  watchText: string[];
-  moLine: string;
-}
 
 export const CONCEPTS: ConceptInfo[] = [
   {
-    id: 'states', name: 'States of matter', short: 'S/L/G', card: 'H',
+    id: 'states', world: 'w1', cardName: 'Hydrogen', cardFact: 'The lightest element. About 3 out of every 4 atoms in the universe are hydrogen.', name: 'States of matter', short: 'S/L/G', card: 'H',
     watchTitle: 'Solid, liquid, gas',
     watchText: [
       'Solid: particles packed tight in rows. They only vibrate. Fixed shape, fixed volume.',
@@ -44,7 +35,7 @@ export const CONCEPTS: ConceptInfo[] = [
     moLine: 'Everything is made of tiny particles. How they move decides the state.',
   },
   {
-    id: 'phase', name: 'Phase changes', short: 'Phase', card: 'He',
+    id: 'phase', world: 'w1', cardName: 'Helium', cardFact: 'Boils at −269 °C, the coldest boiling point of any element. It won’t freeze at normal pressure at all.', name: 'Phase changes', short: 'Phase', card: 'He',
     watchTitle: 'Changing state',
     watchText: [
       'Add heat: solid → liquid is MELTING, liquid → gas is BOILING (vaporization), solid → gas is SUBLIMATION.',
@@ -54,7 +45,7 @@ export const CONCEPTS: ConceptInfo[] = [
     moLine: 'Heat in = particles speed up. Heat out = they slow down and huddle.',
   },
   {
-    id: 'classify', name: 'Element, compound, mixture', short: 'E/C/M', card: 'Li',
+    id: 'classify', world: 'w1', cardName: 'Lithium', cardFact: 'A metal so light it floats on oil. It powers the battery in your phone.', name: 'Element, compound, mixture', short: 'E/C/M', card: 'Li',
     watchTitle: 'What is it made of?',
     watchText: [
       'ELEMENT: only one kind of atom. Can be single atoms or same-atom pairs like O₂.',
@@ -64,7 +55,7 @@ export const CONCEPTS: ConceptInfo[] = [
     moLine: 'Look at the particles: one kind of atom, bonded different atoms, or a jumble?',
   },
   {
-    id: 'change', name: 'Physical vs chemical change', short: 'P/C', card: 'Be',
+    id: 'change', world: 'w1', cardName: 'Beryllium', cardFact: 'Its compounds taste sweet but are toxic. Chemists learned that the hard way.', name: 'Physical vs chemical change', short: 'P/C', card: 'Be',
     watchTitle: 'New stuff or same stuff?',
     watchText: [
       'PHYSICAL change: same substance, new look. Melting, cutting, dissolving, bending.',
@@ -74,7 +65,7 @@ export const CONCEPTS: ConceptInfo[] = [
     moLine: 'Ask: did the atoms rearrange into something NEW?',
   },
   {
-    id: 'density', name: 'Density', short: 'ρ', card: 'B',
+    id: 'density', world: 'w1', cardName: 'Boron', cardFact: 'Boron compounds make Pyrex glass survive sudden temperature changes.', name: 'Density', short: 'ρ', card: 'B',
     watchTitle: 'Float or sink',
     watchText: [
       'Density = mass ÷ volume. Units here are g/cm³ (same as g/mL).',
@@ -84,7 +75,7 @@ export const CONCEPTS: ConceptInfo[] = [
     moLine: 'Divide mass by volume, then compare with the liquid. That’s it.',
   },
 ];
-export const conceptInfo = (id: ConceptId) => CONCEPTS.find((c) => c.id === id)!;
+const conceptInfo = (id: ConceptId) => CONCEPTS.find((c) => c.id === id)!;
 
 /* ---------- particle diagrams ---------- */
 
@@ -184,6 +175,7 @@ const CHEM_SIGNS = [
 
 type Gen = (rng: Rng) => Omit<Question, 'id' | 'template' | 'concept' | 'rung' | 'b'> & { b?: number };
 export interface Template { id: string; concept: ConceptId; rung: Rung; b: number; gen: Gen }
+export type { Rung };
 
 const T: Template[] = [];
 const add = (id: string, concept: ConceptId, rung: Rung, b: number, gen: Gen) => T.push({ id, concept, rung, b, gen });
@@ -441,15 +433,5 @@ add('density-master', 'density', 4, 1.0, (rng) => {
   return { kind: 'peek', prompt: q.p, options: order.map((i) => ({ label: q.o[i] })), answer: order.indexOf(q.a), hint: 'Density = mass ÷ volume.', why: q.w };
 });
 
-export const TEMPLATES = T;
 
-let counter = 0;
-export function build(t: Template, rng: Rng): Question {
-  const g = t.gen(rng);
-  return { ...g, b: g.b ?? t.b, id: `${t.id}-${Date.now().toString(36)}-${counter++}`, template: t.id, concept: t.concept, rung: t.rung } as Question;
-}
-
-export function watchCard(concept: ConceptId): Question {
-  const c = conceptInfo(concept);
-  return { kind: 'watch', id: `watch-${concept}-${counter++}`, template: `watch-${concept}`, concept, rung: 0, b: -3, prompt: c.watchTitle, hint: c.moLine, why: c.watchText.join(' ') };
-}
+export const W1_TEMPLATES = T;

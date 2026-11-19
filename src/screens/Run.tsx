@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { Answer, SaveData } from '../engine/types';
 import { RUNG_NAMES } from '../engine/types';
-import { conceptInfo, mulberry32 } from '../engine/content';
+import { conceptInfo, mulberry32 } from '../engine/registry';
 import {
   BOSS_SECONDS, MAX_CHARGE, applyAnswer, applyWatch, comboMult, finishBoss, grade, nextQuestion, startRun,
   type AnswerResult, type RunState, type Slot,
@@ -19,11 +19,11 @@ const MO_LINES = {
   combo: ['Suit time.', 'Dressed for success.', 'Unstoppable.'],
 };
 
-export function Run({ save, boss, onSave, onDone, onQuit, reduceMotion, alwaysSuit }: {
-  save: SaveData; boss: boolean; onSave: (s: SaveData) => void; onDone: (run: RunState, s: SaveData) => void; onQuit: () => void; reduceMotion: boolean; alwaysSuit: boolean;
+export function Run({ save, boss, world, onSave, onDone, onQuit, reduceMotion, alwaysSuit }: {
+  save: SaveData; boss: boolean; world: string; onSave: (s: SaveData) => void; onDone: (run: RunState, s: SaveData) => void; onQuit: () => void; reduceMotion: boolean; alwaysSuit: boolean;
 }) {
   const work = useRef<SaveData>(structuredClone(save));
-  const run = useRef<RunState>(startRun(boss));
+  const run = useRef<RunState>(startRun(boss, world));
   const rng = useMemo(() => mulberry32(Date.now() & 0xffffffff), []);
   const [cur, setCur] = useState(() => nextQuestion(work.current, run.current, rng));
   const [answer, setAnswer] = useState<Answer | null>(null);
@@ -127,7 +127,7 @@ export function Run({ save, boss, onSave, onDone, onQuit, reduceMotion, alwaysSu
   const suit = boss || alwaysSuit || r.combo >= 5;
   const mood: Mood = phase === 'feedback' ? (result?.correct ? 'happy' : 'sad') : q.kind === 'watch' ? 'wow' : hint ? 'wow' : 'focus';
   const info = conceptInfo(q.concept);
-  const typeName = q.kind === 'peek' && !q.options.some((o) => o.diagram) && !q.show ? 'Quick Pick' : KIND_NAME[q.kind];
+  const typeName = q.kind === 'peek' && q.lewis ? 'Molecule View' : q.kind === 'peek' && !q.options.some((o) => o.diagram) && !q.show ? 'Quick Pick' : KIND_NAME[q.kind];
   const rungName = RUNG_NAMES[q.rung];
 
   return (

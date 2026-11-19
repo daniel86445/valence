@@ -1,6 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import { TEMPLATES, build, mulberry32 } from './content';
-import { applyAnswer, applyWatch, grade, merge, newSave, nextQuestion, startRun, stateAt, prob, currentConcept, finishBoss } from './engine';
+import { TEMPLATES, build, mulberry32 } from './registry';
+import { applyAnswer, applyWatch, cp, grade, merge, newSave, nextQuestion, startRun, stateAt, prob, currentConcept, finishBoss } from './engine';
+import { WORLDS, builtWorlds } from './registry';
+import { EQUATIONS } from './worlds/w9';
+import { MOLECULES } from './worlds/molecules';
+import { formulaOf } from './worlds/w6';
+import { atoms, isBalanced, pretty, prettyText, valenceElectrons } from './chem';
 import type { Answer, Question } from './types';
 
 const right = (q: Question): Answer => {
@@ -35,20 +40,31 @@ describe('content', () => {
       }
     }
   });
-  it('every concept has templates on rungs 1-4', () => {
-    for (const c of ['states', 'phase', 'classify', 'change', 'density']) for (const r of [1, 2, 3, 4]) expect(TEMPLATES.some((t) => t.concept === c && t.rung === r)).toBe(true);
+  it('every concept in every built world has templates on rungs 1-4', () => {
+    for (const w of builtWorlds()) for (const c of w.concepts) for (const r of [1, 2, 3, 4]) expect(TEMPLATES.some((t) => t.concept === c.id && t.rung === r), `${c.id} rung ${r}`).toBe(true);
+  });
+  it('peek questions have 2-4 distinct options', () => {
+    const rng = mulberry32(11);
+    for (const t of TEMPLATES) for (let i = 0; i < 25; i++) {
+      const q = build(t, rng);
+      if (q.kind !== 'peek') continue;
+      const labels = q.options.map((o) => o.label ?? JSON.stringify(o.diagram));
+      expect(new Set(labels).size, `${t.id}: ${labels.join(' | ')}`).toBe(labels.length);
+      expect(labels.length, t.id).toBeGreaterThanOrEqual(2);
+      expect(labels.length, t.id).toBeLessThanOrEqual(4);
+    }
   });
 });
 
 describe('engine', () => {
   it('probability is 0.5 when skill equals difficulty', () => expect(prob(1, 1)).toBeCloseTo(0.5));
 
-  it('a perfect player masters all of World 1', () => {
+  it.each(['w1', 'w6', 'w7', 'w8', 'w9'])('a perfect player masters world %s', (world) => {
     const s = newSave('dev1');
     const rng = mulberry32(3);
     let runs = 0;
-    while (currentConcept(s) && runs < 60) {
-      const run = startRun();
+    while (currentConcept(s, world) && runs < 60) {
+      const run = startRun(false, world);
       while (!run.done) {
         const { q, slot } = nextQuestion(s, run, rng);
         if (q.kind === 'watch') applyWatch(s, run, q.concept);
@@ -56,14 +72,14 @@ describe('engine', () => {
       }
       runs++;
     }
-    expect(currentConcept(s)).toBeNull();
-    expect(s.cards.sort()).toEqual(['B', 'Be', 'H', 'He', 'Li'].sort());
-    expect(runs).toBeLessThan(15);
+    expect(currentConcept(s, world)).toBeNull();
+    expect(s.cards.length).toBe(WORLDS.find((w) => w.id === world)!.concepts.length);
+    expect(runs).toBeLessThan(20);
   });
 
   it('two wrong answers on a rung drop it and force a Watch', () => {
     const s = newSave('d');
-    s.concepts.states.rung = 2;
+    cp(s, 'states').rung = 2;
     const run = startRun();
     const rng = mulberry32(1);
     for (let i = 0; i < 2; i++) {
@@ -71,13 +87,13 @@ describe('engine', () => {
       const { q, slot } = nextQuestion(s, run, rng);
       applyAnswer(s, run, q, slot, false, true);
     }
-    expect(s.concepts.states.rung).toBe(1);
+    expect(cp(s, 'states').rung).toBe(1);
     expect(nextQuestion(s, run, rng).q.kind).toBe('watch');
   });
 
   it('a wrong answer schedules an echo and costs charge', () => {
     const s = newSave('d');
-    s.concepts.states.rung = 1;
+    cp(s, 'states').rung = 1;
     const run = startRun();
     run.index = 1;
     const rng = mulberry32(2);
@@ -101,7 +117,7 @@ describe('engine', () => {
     const a = newSave('pc1');
     const b = newSave('pc2');
     a.xpByDevice = { pc1: 100 }; b.xpByDevice = { pc2: 50, pc1: 80 };
-    a.concepts.states.rung = 3; b.concepts.phase.rung = 2; b.cards = ['H'];
+    cp(a, 'states').rung = 3; cp(b, 'phase').rung = 2; b.cards = ['H'];
     const m1 = merge(a, b);
     const m2 = merge(m1, b);
     expect(m2.xpByDevice).toEqual({ pc1: 100, pc2: 50 });
@@ -109,5 +125,43 @@ describe('engine', () => {
     expect(m2.concepts.phase.rung).toBe(2);
     expect(m2.cards).toEqual(['H']);
     expect(m2.deviceId).toBe('pc1');
+  });
+});
+
+describe('chemistry data', () => {
+  it('every equation is balanced', () => {
+    for (const e of EQUATIONS) expect(isBalanced(e), `${e.r.join('+')} -> ${e.p.join('+')}`).toBe(true);
+  });
+  it('valence electron counts in the molecule table are right', () => {
+    for (const m of MOLECULES) expect(valenceElectrons(m.f, m.charge ?? 0), m.f).toBe(m.ve);
+  });
+  it('domains match geometry', () => {
+    const eg: Record<number, string> = { 2: 'linear', 3: 'trigonal planar', 4: 'tetrahedral', 5: 'trigonal bipyramidal', 6: 'octahedral' };
+    for (const m of MOLECULES) expect(m.eg, m.f).toBe(eg[m.bonds.length + m.lp]);
+    const hyb: Record<number, string> = { 2: 'sp', 3: 'sp2', 4: 'sp3', 5: 'sp3d', 6: 'sp3d2' };
+    for (const m of MOLECULES) if (m.hyb) expect(m.hyb, m.f).toBe(hyb[m.bonds.length + m.lp]);
+  });
+  it('electron bookkeeping in each Lewis structure adds up', () => {
+    for (const m of MOLECULES) {
+      // bonding electrons + central lone pairs + outer atoms' lone pairs (octet, H duet) = total
+      const bonding = m.bonds.reduce((s, b) => s + 2 * b[1], 0);
+      const outer = m.bonds.reduce((s, [el, o]) => s + (el === 'H' ? 0 : 8 - 2 * o), 0);
+      expect(bonding + outer + 2 * m.lp, m.f).toBe(m.ve);
+    }
+  });
+  it('ionic formulas are neutral', () => {
+    expect(formulaOf({ f: 'Al', q: 3, name: '' }, { f: 'O', q: -2, name: '' })).toBe('Al2O3');
+    expect(formulaOf({ f: 'Ca', q: 2, name: '' }, { f: 'NO3', q: -1, name: '', poly: true })).toBe('Ca(NO3)2');
+    expect(formulaOf({ f: 'NH4', q: 1, name: '', poly: true }, { f: 'PO4', q: -3, name: '', poly: true })).toBe('(NH4)3PO4');
+    expect(formulaOf({ f: 'Mg', q: 2, name: '' }, { f: 'O', q: -2, name: '' })).toBe('MgO');
+    expect(atoms('(NH4)3PO4')).toEqual({ N: 3, H: 12, P: 1, O: 4 });
+  });
+  it('pretty prints formulas and ions', () => {
+    expect(pretty('Ca(NO3)2')).toBe('Ca(NO₃)₂');
+    expect(pretty('SO4^2-')).toBe('SO₄²⁻');
+    expect(pretty('Mg2+')).toBe('Mg²⁺');
+    expect(pretty('NO3-')).toBe('NO₃⁻');
+    expect(prettyText('Cl + e- -> Cl-')).toBe('Cl + e⁻ → Cl⁻');
+    expect(prettyText('Which ion is largest? Na+ or Mg2+')).toBe('Which ion is largest? Na⁺ or Mg²⁺');
   });
 });

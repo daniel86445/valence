@@ -1,4 +1,5 @@
-import { CONCEPTS, TEMPLATES, build, conceptInfo, watchCard, type Rng, pick } from './content';
+import { pick, type Rng } from './content';
+import { ALL_CONCEPTS, TEMPLATES, build, conceptInfo, watchCard, worldInfo } from './registry';
 import type { Answer, ConceptId, ConceptProgress, Question, Rung, SaveData, State } from './types';
 
 export const RUN_SHAPE = ['warm', 'new', 'new', 'new', 'review', 'new', 'new', 'echo', 'new', 'mixed', 'mixed', 'finale'] as const;
@@ -17,8 +18,15 @@ const DAY = 86_400_000;
 export function newConcept(): ConceptProgress {
   return { rung: 0, mastered: false, theta: 0, streak: 0, sureHit: false, misses: 0, reviewStep: -1, due: 0, updatedAt: 0 };
 }
+/** Progress for a concept, created on first use. */
+export function cp(s: SaveData, id: ConceptId): ConceptProgress {
+  if (!s.concepts[id]) s.concepts[id] = newConcept();
+  return s.concepts[id];
+}
+const peek = (s: SaveData, id: ConceptId): ConceptProgress => s.concepts[id] ?? newConcept();
+
 export function newSave(deviceId: string): SaveData {
-  const concepts = Object.fromEntries(CONCEPTS.map((c) => [c.id, newConcept()])) as SaveData['concepts'];
+  const concepts: SaveData['concepts'] = {};
   return {
     v: 1, deviceId, concepts, templateB: {}, xpByDevice: {}, answeredByDevice: {}, correctByDevice: {},
     cards: [], outfits: [], bestCombo: 0, worldsCleared: [], recent: [],
@@ -31,13 +39,16 @@ export const levelOf = (xp: number) => Math.floor(Math.sqrt(xp / 120)) + 1;
 export const xpForLevel = (lv: number) => (lv - 1) ** 2 * 120;
 export const accuracy = (s: SaveData) => (s.recent.length ? s.recent.reduce((a, b) => a + b, 0) / s.recent.length : 0);
 
-export function currentConcept(s: SaveData): ConceptId | null {
-  const c = CONCEPTS.find((x) => !s.concepts[x.id].mastered);
+export function currentConcept(s: SaveData, world = 'w1'): ConceptId | null {
+  const c = worldInfo(world).concepts.find((x) => !peek(s, x.id).mastered);
   return c ? c.id : null;
 }
+export function worldMastered(s: SaveData, world: string) {
+  return worldInfo(world).concepts.filter((c) => peek(s, c.id).mastered).length;
+}
 export function dueConcepts(s: SaveData, now = Date.now()): ConceptId[] {
-  return CONCEPTS.filter((c) => s.concepts[c.id].reviewStep >= 0 && s.concepts[c.id].due <= now)
-    .sort((a, b) => s.concepts[a.id].due - s.concepts[b.id].due).map((c) => c.id);
+  return ALL_CONCEPTS.filter((c) => peek(s, c.id).reviewStep >= 0 && peek(s, c.id).due <= now)
+    .sort((a, b) => peek(s, a.id).due - peek(s, b.id).due).map((c) => c.id);
 }
 
 /* ---------- difficulty ---------- */
@@ -51,7 +62,7 @@ function choose(s: SaveData, rng: Rng, concepts: ConceptId[], rungOf: (c: Concep
     for (const r of rungOf(c)) {
       for (const t of TEMPLATES.filter((x) => x.concept === c && x.rung === r)) {
         const q = build(t, rng);
-        const p = prob(s.concepts[c].theta, effB(s, q));
+        const p = prob(peek(s, c).theta, effB(s, q));
         const penalty = avoid.includes(t.id) ? 0.35 : 0;
         cands.push({ q, score: Math.abs(p - target) + penalty + rng() * 0.04 });
       }
@@ -61,17 +72,23 @@ function choose(s: SaveData, rng: Rng, concepts: ConceptId[], rungOf: (c: Concep
   return cands[0]?.q ?? null;
 }
 const atOrBelow = (s: SaveData) => (c: ConceptId): Rung[] => {
-  const r = s.concepts[c].mastered ? 4 : s.concepts[c].rung;
+  const r = peek(s, c).mastered ? 4 : peek(s, c).rung;
   return ([1, 2, 3, 4] as Rung[]).filter((x) => x <= Math.max(1, r));
 };
-const exactly = (s: SaveData) => (c: ConceptId): Rung[] => [Math.max(1, s.concepts[c].rung) as Rung];
-const started = (s: SaveData) => CONCEPTS.map((c) => c.id).filter((id) => s.concepts[id].rung >= 1 || s.concepts[id].mastered);
+const exactly = (s: SaveData) => (c: ConceptId): Rung[] => [Math.max(1, peek(s, c).rung) as Rung];
+const isStarted = (s: SaveData, id: ConceptId) => peek(s, id).rung >= 1 || peek(s, id).mastered;
+/** Concepts in this world you have started, plus started prerequisites from earlier worlds. */
+const started = (s: SaveData, world: string) => {
+  const w = worldInfo(world);
+  return [...w.concepts.map((c) => c.id), ...w.prereqs].filter((id) => conceptInfo(id) && isStarted(s, id));
+};
 
 /* ---------- runs ---------- */
 
 export interface Echo { concept: ConceptId; rung: Rung; template: string; dueIndex: number }
 export interface RunEvent { kind: 'rungUp' | 'rungDown' | 'mastered' | 'card'; concept: ConceptId; rung?: Rung; card?: string }
 export interface RunState {
+  world: string;
   boss: boolean;
   plan: Slot[];
   index: number;
@@ -90,9 +107,9 @@ export interface RunState {
   passed?: boolean;
 }
 
-export function startRun(boss = false): RunState {
+export function startRun(boss = false, world = 'w1'): RunState {
   return {
-    boss, plan: boss ? Array(BOSS_COUNT).fill('boss') : [...RUN_SHAPE], index: 0, charge: boss ? 3 : MAX_CHARGE,
+    world, boss, plan: boss ? Array(BOSS_COUNT).fill('boss') : [...RUN_SHAPE], index: 0, charge: boss ? 3 : MAX_CHARGE,
     combo: 0, bestCombo: 0, xp: 0, correct: 0, answered: 0, echoes: [], forceWatch: null, recentTemplates: [], events: [],
     startedAt: Date.now(), done: false,
   };
@@ -101,9 +118,10 @@ export function startRun(boss = false): RunState {
 export function nextQuestion(s: SaveData, run: RunState, rng: Rng, now = Date.now()): { q: Question; slot: Slot } {
   const slot = run.plan[run.index];
   const avoid = run.recentTemplates.slice(-3);
-  const cur = currentConcept(s);
+  const cur = currentConcept(s, run.world);
+  const worldIds = worldInfo(run.world).concepts.map((c) => c.id);
   if (run.boss) {
-    const q = choose(s, rng, CONCEPTS.map((c) => c.id), () => [3, 4], TARGET.boss, avoid)!;
+    const q = choose(s, rng, worldIds, () => [3, 4], TARGET.boss, avoid)!;
     return { q, slot };
   }
   if (run.forceWatch) return { q: watchCard(run.forceWatch), slot };
@@ -117,14 +135,14 @@ export function nextQuestion(s: SaveData, run: RunState, rng: Rng, now = Date.no
 
   const learnNew = (): { q: Question; slot: Slot } => {
     if (!cur) {
-      const q = choose(s, rng, started(s), atOrBelow(s), TARGET.mixed, avoid)!;
+      const q = choose(s, rng, started(s, run.world), atOrBelow(s), TARGET.mixed, avoid)!;
       return { q, slot: 'mixed' };
     }
-    if (s.concepts[cur].rung === 0) return { q: watchCard(cur), slot: 'new' };
+    if (peek(s, cur).rung === 0) return { q: watchCard(cur), slot: 'new' };
     return { q: choose(s, rng, [cur], exactly(s), TARGET.new, avoid)!, slot: 'new' };
   };
 
-  const pool = started(s);
+  const pool = started(s, run.world);
   switch (slot) {
     case 'warm':
     case 'finale': {
@@ -148,7 +166,7 @@ export function nextQuestion(s: SaveData, run: RunState, rng: Rng, now = Date.no
 
 /** The player finished a Watch card. */
 export function applyWatch(s: SaveData, run: RunState, concept: ConceptId) {
-  const c = s.concepts[concept];
+  const c = cp(s, concept);
   if (c.rung === 0) c.rung = 1;
   c.misses = 0;
   c.updatedAt = Date.now();
@@ -164,7 +182,7 @@ export function comboMult(combo: number) {
 }
 
 export function applyAnswer(s: SaveData, run: RunState, q: Question, _slot: Slot, correct: boolean, sure: boolean, now = Date.now()): AnswerResult {
-  const c = s.concepts[q.concept];
+  const c = cp(s, q.concept);
   const dev = s.deviceId;
   const b = effB(s, q);
   const p = prob(c.theta, b);
@@ -249,15 +267,15 @@ export function finishBoss(s: SaveData, run: RunState) {
   run.passed = run.correct >= BOSS_PASS;
   if (!run.passed) return;
   const now = Date.now();
-  for (const ci of CONCEPTS) {
-    const c = s.concepts[ci.id];
+  for (const ci of worldInfo(run.world).concepts) {
+    const c = cp(s, ci.id);
     if (!c.mastered) {
       c.mastered = true; c.rung = 4; c.reviewStep = 0; c.due = now + DAY; c.updatedAt = now;
       run.events.push({ kind: 'mastered', concept: ci.id });
     }
     if (!s.cards.includes(ci.card)) { s.cards.push(ci.card); run.events.push({ kind: 'card', concept: ci.id, card: ci.card }); }
   }
-  if (!s.worldsCleared.includes('w1')) s.worldsCleared.push('w1');
+  if (!s.worldsCleared.includes(run.world)) s.worldsCleared.push(run.world);
   if (!s.outfits.includes('suit')) s.outfits.push('suit');
   const bonus = 500;
   run.xp += bonus;

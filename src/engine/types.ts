@@ -1,4 +1,21 @@
-export type ConceptId = 'states' | 'phase' | 'classify' | 'change' | 'density';
+export type ConceptId = string;
+
+export interface ConceptInfo {
+  id: ConceptId;
+  world: string;
+  name: string;
+  short: string;
+  card: string; // element symbol won on mastery
+  cardName: string;
+  cardFact: string;
+  watchTitle: string;
+  watchText: string[];
+  traps?: string[];
+  moLine: string;
+  sec?: number;
+}
+
+export interface Lewis { central: string; bonds: [string, number][]; lp: number; charge?: number }
 export type Rung = 0 | 1 | 2 | 3 | 4; // 0 Watch, 1 Spot, 2 Build, 3 Apply, 4 Master
 export const RUNG_NAMES = ['Watch', 'Spot', 'Build', 'Apply', 'Master'] as const;
 
@@ -30,6 +47,10 @@ export interface PeekQ extends QBase {
   answer: number;
   /** Optional diagram shown above text options. */
   show?: Diagram;
+  /** Optional Lewis structure sketch. */
+  lewis?: Lewis;
+  /** Only show the Lewis sketch after answering (when it would give the answer away). */
+  revealOnly?: boolean;
 }
 
 export interface SwipeQ extends QBase {
@@ -90,6 +111,7 @@ export interface Settings {
   volume: number;
   reduceMotion: boolean;
   alwaysSuit: boolean;
+  lastWorld?: string;
 }
 
 export interface SaveData {

@@ -1,8 +1,9 @@
 import { useEffect } from 'react';
 import type { Answer, FloatQ, PeekQ, PhaseQ, Question, State, SwipeQ } from '../engine/types';
 import { stateAt } from '../engine/engine';
-import { conceptInfo } from '../engine/content';
+import { conceptInfo } from '../engine/registry';
 import { ParticleBox } from '../ui/ParticleBox';
+import { LewisBox } from '../ui/LewisBox';
 import { sfx } from '../game/sfx';
 
 export interface ViewProps<Q extends Question> {
@@ -46,6 +47,7 @@ export function PeekView({ q, value, onChange, reveal }: ViewProps<PeekQ>) {
   return (
     <div className="flex flex-col gap-5">
       {q.show && <div className="flex justify-center"><ParticleBox d={q.show} w={360} h={200} /></div>}
+      {q.lewis && (!q.revealOnly || reveal) && <div className={`flex justify-center ${reveal && q.revealOnly ? 'pop' : ''}`}><LewisBox l={q.lewis} /></div>}
       <div className={`grid gap-3 ${hasDiagrams ? 'grid-cols-3' : q.options.length > 3 ? 'grid-cols-2' : 'grid-cols-3'}`}>
         {q.options.map((o, i) => {
           const st = reveal ? (i === q.answer ? 'right' : i === chosen ? 'wrong' : 'idle') : i === chosen ? 'chosen' : 'idle';
@@ -87,7 +89,7 @@ export function SwipeView({ q, value, onChange, reveal }: ViewProps<SwipeQ>) {
               if (sides[j] !== side) return null;
               const ok = c.side === side;
               const st = reveal ? (ok ? 'right' : 'wrong') : 'chosen';
-              return <div key={j} className={`px px-3 py-2 text-lg ${tileStyle(st)}`}>{c.text}{reveal && !ok && <span className="ml-2 font-tag text-[11px]">→ {c.side === 'L' ? q.left : q.right}</span>}</div>;
+              return <div key={j} className={`px px-3 py-2 ${c.text.length > 40 ? 'text-base' : 'text-lg'} ${tileStyle(st)}`}>{c.text}{reveal && !ok && <span className="ml-2 font-tag text-[11px]">→ {c.side === 'L' ? q.left : q.right}</span>}</div>;
             })}
           </div>
         ))}
@@ -103,7 +105,7 @@ export function SwipeView({ q, value, onChange, reveal }: ViewProps<SwipeQ>) {
         <button onClick={() => put('L')} className={`px8 press flex h-40 w-56 flex-col items-center justify-center gap-2 ${tileStyle('idle')}`}>
           <span className="text-4xl">◄</span><span className="px-3 text-center text-xl font-bold">{q.left}</span>
         </button>
-        <div key={i} className="px8 pop flex h-44 flex-1 items-center justify-center bg-ink p-6 text-center text-3xl font-bold text-abyss" style={{ boxShadow: 'inset 0 -8px 0 #8FA3C4' }}>
+        <div key={i} className={`px8 pop flex min-h-44 flex-1 items-center justify-center bg-ink p-6 text-center font-bold text-abyss ${card.text.length < 32 ? 'text-3xl' : card.text.length < 80 ? 'text-xl leading-snug' : 'text-lg leading-snug'}`} style={{ boxShadow: 'inset 0 -8px 0 #8FA3C4' }}>
           {card.text}
         </div>
         <button onClick={() => put('R')} className={`px8 press flex h-40 w-56 flex-col items-center justify-center gap-2 ${tileStyle('idle')}`}>
@@ -306,6 +308,24 @@ export function WatchView({ q }: { q: Question }) {
           <div className="px absolute flex items-center justify-center text-xs font-bold text-abyss" style={{ left: 20, top: 26, width: 70, height: 44, background: '#C98B4A' }}>WOOD 0.6</div>
           <div className="px absolute flex items-center justify-center text-xs font-bold text-abyss" style={{ left: 120, top: 120, width: 70, height: 44, background: '#8FA3C4' }}>ROCK 2.7</div>
         </div>
+      </div>
+    );
+  }
+  if (!visual) {
+    return (
+      <div className="grid gap-4 md:grid-cols-[3fr_2fr]">
+        <div className="px8 flex flex-col gap-3 bg-panel p-5">
+          <div className="font-tag text-xs text-cyan">KEY IDEAS</div>
+          {info.watchText.map((t, i) => (
+            <div key={i} className="flex gap-3 font-body text-lg leading-relaxed text-[#C9D6EA]"><span className="font-tag text-sm text-cyan">{i + 1}</span><span>{t}</span></div>
+          ))}
+        </div>
+        {info.traps && info.traps.length > 0 && (
+          <div className="px8 flex flex-col gap-3 bg-amber-deep p-5">
+            <div className="font-tag text-xs text-amber">DON’T FALL FOR IT</div>
+            {info.traps.map((t, i) => <p key={i} className="font-body text-base leading-relaxed text-amber-light">{t}</p>)}
+          </div>
+        )}
       </div>
     );
   }

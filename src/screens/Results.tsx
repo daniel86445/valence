@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import type { RunState } from '../engine/engine';
 import { BOSS_PASS, BOSS_COUNT } from '../engine/engine';
 import { RUNG_NAMES } from '../engine/types';
-import { conceptInfo } from '../engine/content';
+import { conceptInfo } from '../engine/registry';
 import { Mo } from '../ui/Mo';
 import { Confetti } from '../ui/Juice';
 import { ElementTile } from './Cards';
@@ -31,7 +31,7 @@ export function Results({ run, onAgain, onMap }: { run: RunState; onAgain: () =>
 
   const title = run.boss ? (run.passed ? 'Reactor down!' : 'The Reactor held.') : outOfCharge ? 'Out of charge!' : good ? 'Nice run.' : 'Good practice.';
   const sub = run.boss
-    ? run.passed ? 'World 1 cleared. Mo’s suit is yours.' : `You needed ${BOSS_PASS} of ${BOSS_COUNT}. Keep climbing and try again.`
+    ? run.passed ? `World ${run.world.slice(1)} cleared. Mo’s suit is yours.` : `You needed ${BOSS_PASS} of ${BOSS_COUNT}. Keep climbing and try again.`
     : outOfCharge ? 'Every miss comes back as an echo, so you’ll see these again.' : good ? 'You’re learning fast.' : 'The misses are scheduled to come back. That’s how it sticks.';
 
   return (

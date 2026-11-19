@@ -12,10 +12,20 @@ A pixel-art chemistry game that teaches from the basics up. Your companion is **
 - **Hold to lock in.** Holding past 0.7 s means "sure": ×1.5 XP if right, a bigger replay if wrong.
 - **Misses come back** as an echo 3 questions later, and reviews spread out at 1, 3, 7, 16 and 35 days.
 
-## World 1: Matter
+## Worlds (Chem 1111, Burdge & Overby *Atoms First*)
 
-States of matter · Phase changes · Element/compound/mixture · Physical vs chemical change · Density, then the Reactor boss.
-Question types: Particle Peek, Swipe Sort, Float or Sink, Phase Shift.
+| World | Chapter | Status |
+|---|---|---|
+| 1 Matter | Ch 1 | Playable |
+| 2–5 Measurement, Atoms, Electrons, Periodic Trends | Ch 1–4 | Waiting for study guide 3 |
+| 6 Ions & Bonds | Ch 5 | Playable |
+| 7 Drawing Molecules | Ch 6 | Playable |
+| 8 Shapes & Forces | Ch 7 | Playable |
+| 9 Reactions & Moles | Ch 8 | Playable |
+| 10–14 Water, Energy, Gases, Liquids & Solids, Solutions | Ch 9–13 | Next (study guide 2) |
+| 15 Extremes | Bonus | Later |
+
+Worlds 6–9 come from study guide 1: each section is a concept with a Watch card (key ideas + traps), a Fact-or-Myth swipe built from the guide's misconceptions, the guide's own practice questions, and code-generated questions from data tables (`src/engine/worlds/`). Chemistry data is checked by tests: every equation balances, valence counts and Lewis electron bookkeeping add up, ionic formulas are neutral.
 
 ## Develop
 

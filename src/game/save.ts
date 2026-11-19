@@ -1,5 +1,4 @@
-import { newSave, newConcept } from '../engine/engine';
-import { CONCEPTS } from '../engine/content';
+import { newSave } from '../engine/engine';
 import type { SaveData } from '../engine/types';
 
 const KEY = 'valence-save-v1';
@@ -19,7 +18,7 @@ export function deviceId(): string {
 export function normalize(s: SaveData, dev: string): SaveData {
   const fresh = newSave(dev);
   const out: SaveData = { ...fresh, ...s, settings: { ...fresh.settings, ...s.settings }, deviceId: dev };
-  for (const c of CONCEPTS) if (!out.concepts[c.id]) out.concepts[c.id] = newConcept();
+  out.concepts = { ...(s.concepts ?? {}) };
   return out;
 }
 

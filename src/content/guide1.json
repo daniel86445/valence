@@ -1,0 +1,944 @@
+{
+ "mc": [
+  {
+   "n": 1,
+   "sec": 1,
+   "prompt": "Which change represents formation of a cation?",
+   "options": [
+    "Cl + e- -> Cl-",
+    "Na -> Na+ + e-",
+    "O + 2e- -> O2-",
+    "Ne -> Ne"
+   ],
+   "answer": 1,
+   "why": "Na loses an electron to form a positive ion."
+  },
+  {
+   "n": 2,
+   "sec": 1,
+   "prompt": "Which ion is expected to be largest?",
+   "options": [
+    "Na+",
+    "Mg2+",
+    "F-",
+    "Al3+"
+   ],
+   "answer": 2,
+   "why": "These ions are isoelectronic; F- has the fewest protons attracting 10 electrons."
+  },
+  {
+   "n": 5,
+   "sec": 2,
+   "prompt": "What is the correct formula for aluminum oxide?",
+   "options": [
+    "AlO",
+    "Al2O",
+    "AlO2",
+    "Al2O3"
+   ],
+   "answer": 3,
+   "why": "Al3+ and O2- balance in a 2:3 ratio."
+  },
+  {
+   "n": 6,
+   "sec": 2,
+   "prompt": "Which formula correctly represents calcium nitrate?",
+   "options": [
+    "Ca(NO3)2",
+    "Ca2NO3",
+    "CaNO3",
+    "Ca2(NO3)3"
+   ],
+   "answer": 0,
+   "why": "Ca2+ requires two nitrate ions."
+  },
+  {
+   "n": 9,
+   "sec": 3,
+   "prompt": "What is the correct name for FeCl3?",
+   "options": [
+    "iron chloride",
+    "iron(II) chloride",
+    "iron(III) chloride",
+    "iron trichloride"
+   ],
+   "answer": 2,
+   "why": "Three Cl- ions require Fe3+."
+  },
+  {
+   "n": 10,
+   "sec": 3,
+   "prompt": "What is the correct name for Na2SO4?",
+   "options": [
+    "sodium sulfate",
+    "disodium sulfate",
+    "sodium sulfide",
+    "sodium(II) sulfate"
+   ],
+   "answer": 0,
+   "why": "Na+ and sulfate combine in a 2:1 ratio."
+  },
+  {
+   "n": 13,
+   "sec": 4,
+   "prompt": "Which statement best describes a covalent bond?",
+   "options": [
+    "Electrons are shared between atoms.",
+    "Protons are transferred between nuclei.",
+    "Oppositely charged ions are held together.",
+    "Neutrons are shared between atoms."
+   ],
+   "answer": 0,
+   "why": "Covalent bonds involve shared electron pairs."
+  },
+  {
+   "n": 14,
+   "sec": 4,
+   "prompt": "For bonds between the same two elements, which is generally shortest?",
+   "options": [
+    "single bond",
+    "double bond",
+    "triple bond",
+    "all are the same length"
+   ],
+   "answer": 2,
+   "why": "Higher bond order is generally shorter."
+  },
+  {
+   "n": 17,
+   "sec": 5,
+   "prompt": "Which bond is expected to be most polar?",
+   "options": [
+    "C-H",
+    "N-H",
+    "O-H",
+    "F-H"
+   ],
+   "answer": 3,
+   "why": "H-F has the largest electronegativity difference."
+  },
+  {
+   "n": 18,
+   "sec": 5,
+   "prompt": "In an H-Cl bond, which atom carries the partial negative charge?",
+   "options": [
+    "H, because it has fewer electrons",
+    "Cl, because it is more electronegative",
+    "H, because hydrogen is smaller",
+    "Neither; H-Cl is ionic"
+   ],
+   "answer": 1,
+   "why": "Cl is more electronegative than H."
+  },
+  {
+   "n": 21,
+   "sec": 6,
+   "prompt": "Which compound would generally be expected to have the strongest ionic attractions?",
+   "options": [
+    "NaCl",
+    "KBr",
+    "MgO",
+    "LiF"
+   ],
+   "answer": 2,
+   "why": "Mg2+ and O2- have charge magnitudes of 2, giving strong attraction."
+  },
+  {
+   "n": 22,
+   "sec": 6,
+   "prompt": "Why can molten NaCl conduct electricity while solid NaCl cannot?",
+   "options": [
+    "Melting creates free electrons.",
+    "The ions become mobile in the liquid.",
+    "NaCl becomes covalent when melted.",
+    "The nuclei begin moving between atoms."
+   ],
+   "answer": 1,
+   "why": "Mobile ions carry charge in the melt."
+  },
+  {
+   "n": 25,
+   "sec": 7,
+   "prompt": "How many total valence electrons are in CO2?",
+   "options": [
+    "12",
+    "16",
+    "18",
+    "22"
+   ],
+   "answer": 1,
+   "why": "C contributes 4 and two O atoms contribute 12, total 16. Page 14"
+  },
+  {
+   "n": 26,
+   "sec": 7,
+   "prompt": "How many valence electrons should be used to draw NO3-?",
+   "options": [
+    "23",
+    "24",
+    "25",
+    "26"
+   ],
+   "answer": 1,
+   "why": "N contributes 5, three O atoms 18, and the -1 charge adds one: 24."
+  },
+  {
+   "n": 29,
+   "sec": 8,
+   "prompt": "Which atom is normally the central atom in COCl2?",
+   "options": [
+    "O",
+    "Cl",
+    "C",
+    "H"
+   ],
+   "answer": 2,
+   "why": "Carbon is the least electronegative non-halogen and forms the central framework."
+  },
+  {
+   "n": 30,
+   "sec": 8,
+   "prompt": "After drawing a skeletal structure with single bonds, what is a useful next step?",
+   "options": [
+    "Complete octets on terminal atoms.",
+    "Add random double bonds immediately.",
+    "Give hydrogen eight electrons.",
+    "Remove all lone pairs."
+   ],
+   "answer": 0,
+   "why": "Complete terminal octets before adjusting the central atom."
+  },
+  {
+   "n": 33,
+   "sec": 9,
+   "prompt": "What must the formal charges in a neutral molecule add to?",
+   "options": [
+    "-1",
+    "0",
+    "+1",
+    "the number of bonds"
+   ],
+   "answer": 1,
+   "why": "Formal charges sum to the overall species charge, here zero."
+  },
+  {
+   "n": 34,
+   "sec": 9,
+   "prompt": "Which feature generally makes one valid Lewis structure more favorable than another?",
+   "options": [
+    "Large separated formal charges",
+    "Negative charge on the least electronegative atom",
+    "Minimized formal charges",
+    "The greatest possible number of lone pairs on hydrogen"
+   ],
+   "answer": 2,
+   "why": "Smaller formal-charge magnitudes are generally preferred."
+  },
+  {
+   "n": 37,
+   "sec": 10,
+   "prompt": "Which statement about resonance structures is correct?",
+   "options": [
+    "Atoms occupy different positions in each resonance form.",
+    "Only electron placement changes while atom connectivity remains the same.",
+    "A molecule spends half its time in each drawing.",
+    "Resonance occurs only in ionic compounds."
+   ],
+   "answer": 1,
+   "why": "Connectivity stays fixed; electron placement changes."
+  },
+  {
+   "n": 38,
+   "sec": 10,
+   "prompt": "In the nitrate ion, the three N-O bonds are experimentally equivalent primarily because of:",
+   "options": [
+    "isotopes",
+    "hydrogen bonding",
+    "resonance delocalization",
+    "ionic lattice formation"
+   ],
+   "answer": 2,
+   "why": "Delocalization makes the three N-O bonds equivalent."
+  },
+  {
+   "n": 41,
+   "sec": 11,
+   "prompt": "Which species is a common example of an incomplete octet on the central atom?",
+   "options": [
+    "CH4",
+    "BF3",
+    "NH3",
+    "H2O"
+   ],
+   "answer": 1,
+   "why": "BF3 commonly has six electrons around B."
+  },
+  {
+   "n": 42,
+   "sec": 11,
+   "prompt": "Which statement about the octet rule is most accurate?",
+   "options": [
+    "Every stable molecule must obey it without exception.",
+    "Only ionic compounds obey it.",
+    "It is a useful guideline with important exceptions.",
+    "Atoms in period 1 can expand their octets."
+   ],
+   "answer": 2,
+   "why": "The octet rule has recognized exceptions."
+  },
+  {
+   "n": 45,
+   "sec": 12,
+   "prompt": "Which C-C bond is generally strongest?",
+   "options": [
+    "C-C",
+    "C=C",
+    "C\u2261C",
+    "All have the same strength."
+   ],
+   "answer": 2,
+   "why": "A triple bond has the highest bond order and is generally strongest."
+  },
+  {
+   "n": 46,
+   "sec": 12,
+   "prompt": "Which statement is correct?",
+   "options": [
+    "Breaking a bond releases energy.",
+    "Forming a bond always requires energy.",
+    "Breaking bonds requires energy, while forming bonds releases energy.",
+    "Bond energy is unrelated to bond strength."
+   ],
+   "answer": 2,
+   "why": "Bond breaking absorbs energy; bond formation releases it."
+  },
+  {
+   "n": 49,
+   "sec": 13,
+   "prompt": "How many electron domains surround the central carbon in CO2?",
+   "options": [
+    "2",
+    "3",
+    "4",
+    "6"
+   ],
+   "answer": 0,
+   "why": "CO2 has two bonding regions around C."
+  },
+  {
+   "n": 50,
+   "sec": 13,
+   "prompt": "What is the electron-domain geometry around N in NH3?",
+   "options": [
+    "trigonal planar",
+    "bent",
+    "tetrahedral",
+    "trigonal pyramidal"
+   ],
+   "answer": 2,
+   "why": "NH3 has four electron domains, giving tetrahedral electron geometry."
+  },
+  {
+   "n": 53,
+   "sec": 14,
+   "prompt": "What is the molecular geometry of NH3?",
+   "options": [
+    "tetrahedral",
+    "trigonal pyramidal",
+    "trigonal planar",
+    "bent"
+   ],
+   "answer": 1,
+   "why": "Linear CO2 has bond dipoles that cancel."
+  },
+  {
+   "n": 54,
+   "sec": 14,
+   "prompt": "Why is the H-O-H bond angle in water smaller than the ideal tetrahedral angle?",
+   "options": [
+    "O-H bonds are ionic.",
+    "Hydrogen has lone pairs.",
+    "Oxygen has two lone pairs that repel bonding pairs strongly.",
+    "Water has only two electron domains."
+   ],
+   "answer": 2,
+   "why": "Dipole cancellation depends on 3D geometry."
+  },
+  {
+   "n": 57,
+   "sec": 15,
+   "prompt": "Which molecule is nonpolar despite containing polar bonds?",
+   "options": [
+    "H2O",
+    "NH3",
+    "CO2",
+    "SO2"
+   ],
+   "answer": 2,
+   "why": "Dispersion forces occur in all particles."
+  },
+  {
+   "n": 58,
+   "sec": 15,
+   "prompt": "Which factor must be considered when deciding whether bond dipoles cancel?",
+   "options": [
+    "atomic mass only",
+    "molecular geometry",
+    "number of neutrons",
+    "molar mass only"
+   ],
+   "answer": 1,
+   "why": "NH3 can hydrogen-bond because H is bonded to N."
+  },
+  {
+   "n": 61,
+   "sec": 16,
+   "prompt": "Which intermolecular force is present in every molecular substance?",
+   "options": [
+    "hydrogen bonding",
+    "ion-dipole forces",
+    "London dispersion forces",
+    "dipole-dipole forces"
+   ],
+   "answer": 2,
+   "why": "Four domains correspond to sp3 in the basic hybridization model."
+  },
+  {
+   "n": 62,
+   "sec": 16,
+   "prompt": "Which pure substance can form hydrogen bonds between its molecules?",
+   "options": [
+    "CH4",
+    "H2S",
+    "NH3",
+    "CO2"
+   ],
+   "answer": 2,
+   "why": "A double bond contains one sigma and one pi bond."
+  },
+  {
+   "n": 65,
+   "sec": 17,
+   "prompt": "What hybridization is commonly associated with four electron domains?",
+   "options": [
+    "sp",
+    "sp2",
+    "sp3",
+    "d2sp3"
+   ],
+   "answer": 2,
+   "why": "The asterisk denotes antibonding."
+  },
+  {
+   "n": 66,
+   "sec": 17,
+   "prompt": "How many sigma and pi bonds are in a carbon-carbon double bond?",
+   "options": [
+    "2 sigma, 0 pi",
+    "1 sigma, 1 pi",
+    "0 sigma, 2 pi",
+    "1 sigma, 2 pi"
+   ],
+   "answer": 1,
+   "why": "Unpaired electrons cause paramagnetism."
+  },
+  {
+   "n": 69,
+   "sec": 18,
+   "prompt": "What does an asterisk in a molecular-orbital label such as sigma* indicate?",
+   "options": [
+    "a core orbital",
+    "an antibonding orbital",
+    "a hybrid orbital",
+    "a lone pair"
+   ],
+   "answer": 1,
+   "why": "Correct answer: an antibonding orbital."
+  },
+  {
+   "n": 70,
+   "sec": 18,
+   "prompt": "A molecule with one or more unpaired electrons is described as:",
+   "options": [
+    "diamagnetic",
+    "ionic",
+    "paramagnetic",
+    "nonpolar"
+   ],
+   "answer": 2,
+   "why": "Correct answer: paramagnetic."
+  },
+  {
+   "n": 73,
+   "sec": 19,
+   "prompt": "What does the coefficient 3 in 3H2O represent?",
+   "options": [
+    "Three oxygen atoms only",
+    "Three moles or molecules of H2O",
+    "Three hydrogen atoms",
+    "A change to the formula of water"
+   ],
+   "answer": 1,
+   "why": "The coefficient multiplies the entire H2O formula."
+  },
+  {
+   "n": 74,
+   "sec": 19,
+   "prompt": "Which symbol indicates a substance dissolved in water?",
+   "options": [
+    "(s)",
+    "(l)",
+    "(g)",
+    "(aq)"
+   ],
+   "answer": 3,
+   "why": "(aq) means dissolved in water."
+  },
+  {
+   "n": 77,
+   "sec": 20,
+   "prompt": "What coefficient belongs in front of O2 when C3H8 + O2 -> 3CO2 + 4H2O is balanced?",
+   "options": [
+    "3",
+    "4",
+    "5",
+    "7"
+   ],
+   "answer": 2,
+   "why": "C3H8 + 5O2 -> 3CO2 + 4H2O."
+  },
+  {
+   "n": 78,
+   "sec": 20,
+   "prompt": "Which is the correctly balanced equation?",
+   "options": [
+    "H2 + O2 -> H2O",
+    "2H2 + O2 -> 2H2O",
+    "H2 + 2O2 -> H2O2",
+    "2H2 + 2O2 -> 2H2O"
+   ],
+   "answer": 1,
+   "why": "2H2 + O2 -> 2H2O conserves H and O atoms."
+  },
+  {
+   "n": 81,
+   "sec": 21,
+   "prompt": "Which reaction is a decomposition reaction?",
+   "options": [
+    "2Mg + O2 -> 2MgO",
+    "2KClO3 -> 2KCl + 3O2",
+    "CH4 + 2O2 -> CO2 + 2H2O",
+    "Zn + CuSO4 -> ZnSO4 + Cu"
+   ],
+   "answer": 1,
+   "why": "One reactant splitting into multiple products is decomposition."
+  },
+  {
+   "n": 82,
+   "sec": 21,
+   "prompt": "What are the expected products of complete combustion of C2H6?",
+   "options": [
+    "C and H2",
+    "CO and H2",
+    "CO2 and H2O",
+    "C2O and H6O"
+   ],
+   "answer": 2,
+   "why": "Complete hydrocarbon combustion gives CO2 and H2O."
+  },
+  {
+   "n": 85,
+   "sec": 22,
+   "prompt": "For N2 + 3H2 -> 2NH3, how many moles NH3 can form from 6.00 mol H2 if N2 is excess?",
+   "options": [
+    "2.00 mol",
+    "3.00 mol",
+    "4.00 mol",
+    "12.0 mol"
+   ],
+   "answer": 2,
+   "why": "6.00 mol H2 x (2/3) = 4.00 mol NH3."
+  },
+  {
+   "n": 86,
+   "sec": 22,
+   "prompt": "In a stoichiometry calculation, what provides the conversion between moles of two different substances?",
+   "options": [
+    "molar masses only",
+    "balanced-equation coefficients",
+    "atomic numbers",
+    "density"
+   ],
+   "answer": 1,
+   "why": "Balanced coefficients provide mole ratios."
+  },
+  {
+   "n": 89,
+   "sec": 23,
+   "prompt": "What determines the theoretical amount of product when two reactants are supplied?",
+   "options": [
+    "the reactant with the largest mass",
+    "the limiting reactant",
+    "the reactant with the largest coefficient",
+    "the excess reactant"
+   ],
+   "answer": 1,
+   "why": "The limiting reactant sets the maximum product."
+  },
+  {
+   "n": 90,
+   "sec": 23,
+   "prompt": "For 2H2 + O2 -> 2H2O, 2.0 mol H2 reacts with 2.0 mol O2. Which reactant is limiting?",
+   "options": [
+    "H2",
+    "O2",
+    "H2O",
+    "Neither; they are stoichiometric"
+   ],
+   "answer": 0,
+   "why": "2 mol H2 require only 1 mol O2, so H2 is consumed first. Page 16"
+  },
+  {
+   "n": 93,
+   "sec": 24,
+   "prompt": "A reaction has a theoretical yield of 25.0 g and an actual yield of 20.0 g. What is the percent yield?",
+   "options": [
+    "20.0%",
+    "80.0%",
+    "125%",
+    "5.00%"
+   ],
+   "answer": 1,
+   "why": "20.0/25.0 x 100 = 80.0%."
+  },
+  {
+   "n": 94,
+   "sec": 24,
+   "prompt": "Which quantity is calculated from stoichiometry before an experiment is performed?",
+   "options": [
+    "actual yield",
+    "percent error",
+    "theoretical yield",
+    "experimental mass only"
+   ],
+   "answer": 2,
+   "why": "Theoretical yield is the stoichiometric prediction."
+  }
+ ],
+ "facts": {
+  "1": [
+   "Ionic bonding results from electrostatic attraction between oppositely charged ions.",
+   "Metals commonly lose valence electrons to form cations; nonmetals commonly gain electrons to form anions.",
+   "Main-group ions often form to achieve a noble-gas-like electron configuration.",
+   "Cations are smaller than their neutral atoms; anions are larger than their neutral atoms.",
+   "The charge on a monatomic ion can often be predicted from its periodic-table group."
+  ],
+  "2": [
+   "Ionic compounds are electrically neutral overall.",
+   "Subscripts in an ionic formula give the lowest whole-number ratio of ions.",
+   "Total positive charge must equal total negative charge.",
+   "Parentheses are used around a polyatomic ion when more than one of that ion is present.",
+   "Ionic compounds are described using formula units rather than molecules."
+  ],
+  "3": [
+   "Name the cation first and the anion second.",
+   "Monatomic anions use an -ide ending.",
+   "Metals that can form more than one charge require a Roman numeral indicating the cation charge.",
+   "Roman numerals indicate charge, not the number of ions in the formula.",
+   "Polyatomic-ion names are retained in ionic compound names."
+  ],
+  "4": [
+   "Covalent bonds form when atoms share electron pairs.",
+   "A single bond contains one shared pair, a double bond two, and a triple bond three.",
+   "Bond order generally increases from single to double to triple.",
+   "For the same pair of atoms, higher bond order generally means a shorter, stronger bond.",
+   "Lewis theory focuses primarily on valence electrons."
+  ],
+  "5": [
+   "Electronegativity describes an atom's ability to attract shared electrons in a bond.",
+   "Electronegativity generally increases toward the upper right of the periodic table, excluding noble-gas complications.",
+   "A nonpolar covalent bond has relatively equal sharing; a polar covalent bond has unequal sharing.",
+   "A larger electronegativity difference generally produces greater bond polarity.",
+   "Bond dipoles point toward the more electronegative atom."
+  ],
+  "6": [
+   "Lattice energy reflects the strength of electrostatic attractions in an ionic solid.",
+   "Larger ionic charges generally produce stronger attractions and larger lattice-energy magnitudes.",
+   "Smaller ion-to-ion distance generally strengthens electrostatic attraction.",
+   "Ionic solids tend to have relatively high melting points.",
+   "Solid ionic compounds do not conduct electricity well because their ions are fixed; molten or dissolved ionic substances can conduct when ions are mobile."
+  ],
+  "7": [
+   "Lewis symbols show an element symbol surrounded by its valence electrons.",
+   "Main-group valence-electron counts can usually be determined from periodic-table groups.",
+   "When drawing a Lewis structure, count the total valence electrons before placing bonds and lone pairs.",
+   "Add electrons for a negative charge and subtract electrons for a positive charge.",
+   "The final structure must use the correct total number of valence electrons."
+  ],
+  "8": [
+   "Choose a reasonable skeletal arrangement, usually placing the least electronegative non-hydrogen atom in the center.",
+   "Connect atoms with single bonds first.",
+   "Complete terminal-atom octets, then place remaining electrons on the central atom.",
+   "If the central atom lacks an octet, lone pairs on adjacent atoms may be converted to multiple bonds.",
+   "Hydrogen follows a duet rule and forms only one normal bond."
+  ],
+  "9": [
+   "Formal charge is a bookkeeping tool used to compare possible Lewis structures.",
+   "Formal charge = valence electrons - nonbonding electrons - 1/2(bonding electrons).",
+   "Preferred structures usually minimize formal-charge magnitudes.",
+   "Negative formal charge is generally more favorable on the more electronegative atom.",
+   "The sum of all formal charges must equal the overall charge on the species."
+  ],
+  "10": [
+   "Resonance structures have the same atom arrangement but different valid electron placements.",
+   "Atoms do not move between resonance structures; only electron placement changes.",
+   "The actual species is a resonance hybrid, not a molecule rapidly switching between drawings.",
+   "Equivalent resonance structures can lead to equalized bond lengths.",
+   "Resonance delocalizes electron density and can increase stability."
+  ],
+  "11": [
+   "Hydrogen follows a duet rule.",
+   "Electron-deficient central atoms such as Be or B can sometimes have fewer than eight electrons.",
+   "Odd-electron species cannot give every atom a complete octet.",
+   "Elements in period 3 and below can sometimes be represented with expanded valence shells in common Lewis models.",
+   "The octet rule is a useful guideline, not an absolute law."
+  ],
+  "12": [
+   "Bond enthalpy is the energy required to break a bond in the gas phase.",
+   "Stronger bonds generally have larger bond enthalpies.",
+   "For the same pair of atoms, increasing bond order generally shortens and strengthens the bond.",
+   "Average bond enthalpies can be used to estimate reaction enthalpy from bonds broken and formed.",
+   "Breaking bonds requires energy; forming bonds releases energy."
+  ],
+  "13": [
+   "VSEPR theory predicts shapes by minimizing repulsions among electron domains around a central atom.",
+   "Single, double, and triple bonds each count as one electron domain for basic VSEPR geometry.",
+   "A lone pair counts as an electron domain.",
+   "Two domains give linear electron geometry; three trigonal planar; four tetrahedral.",
+   "Electron-domain geometry includes lone pairs, while molecular geometry describes atom positions."
+  ],
+  "14": [
+   "Molecular geometry describes the arrangement of bonded atoms.",
+   "Lone pairs repel more strongly than bonding pairs and can compress bond angles.",
+   "Four electron domains with one lone pair give trigonal-pyramidal molecular geometry.",
+   "Four electron domains with two lone pairs give bent molecular geometry.",
+   "Three electron domains with one lone pair also give a bent molecular geometry."
+  ],
+  "15": [
+   "Molecular polarity depends on both bond polarities and molecular geometry.",
+   "Bond dipoles are vectors and may reinforce or cancel.",
+   "A symmetrical molecule can be nonpolar even when it contains polar bonds.",
+   "Lone pairs can contribute to asymmetry and molecular polarity.",
+   "CO2 is nonpolar because its two C-O bond dipoles cancel; H2O is polar because its bent geometry prevents cancellation."
+  ],
+  "16": [
+   "London dispersion forces occur in all atoms and molecules.",
+   "Dipole-dipole forces occur between polar molecules.",
+   "Hydrogen bonding is a particularly strong dipole-dipole interaction when H is bonded to N, O, or F and interacts with a lone pair on N, O, or F.",
+   "Stronger intermolecular forces generally raise boiling point and viscosity and lower vapor pressure.",
+   "Dispersion forces generally increase with polarizability and molecular size/surface area."
+  ],
+  "17": [
+   "Valence bond theory describes covalent bonds as overlap of atomic or hybrid orbitals.",
+   "Hybridization provides orbital sets consistent with observed molecular geometries.",
+   "Two electron domains are commonly associated with sp hybridization, three with sp2, and four with sp3.",
+   "Sigma bonds result from head-on orbital overlap.",
+   "A double bond contains one sigma and one pi bond; a triple bond contains one sigma and two pi bonds."
+  ],
+  "18": [
+   "Molecular orbital theory treats electrons as occupying orbitals spread over a molecule.",
+   "Bonding molecular orbitals stabilize a molecule; antibonding orbitals are designated with an asterisk and oppose bonding.",
+   "Bond order = 1/2[(bonding electrons) - (antibonding electrons)].",
+   "Greater bond order generally corresponds to stronger, shorter bonds.",
+   "Unpaired electrons in molecular orbitals produce paramagnetism."
+  ],
+  "19": [
+   "Chemical equations represent reactants changing into products.",
+   "Coefficients indicate relative numbers of particles and relative numbers of moles.",
+   "Subscripts are part of chemical formulas and should not be changed when balancing an equation.",
+   "State symbols include (s), (l), (g), and (aq).",
+   "A balanced equation obeys conservation of atoms and therefore conservation of mass."
+  ],
+  "20": [
+   "Balance equations by changing coefficients only.",
+   "The number of atoms of each element must be the same on both sides.",
+   "Use the lowest whole-number coefficient ratio unless a specific context requires otherwise.",
+   "It is often efficient to balance elements appearing in fewer compounds first and leave H or O for later.",
+   "Recount all atoms after balancing."
+  ],
+  "21": [
+   "Common reaction patterns include combination, decomposition, combustion, single-replacement, and double-replacement reactions.",
+   "In a combination reaction, simpler substances form a more complex product.",
+   "In a decomposition reaction, one reactant forms two or more products.",
+   "Hydrocarbon combustion with sufficient oxygen commonly produces CO2 and H2O.",
+   "Reaction patterns help predict products but chemical formulas and charge balance must still be correct."
+  ],
+  "22": [
+   "Balanced coefficients provide mole-to-mole conversion factors.",
+   "Stoichiometric calculations normally begin with a balanced equation.",
+   "Convert a known quantity to moles, use the coefficient ratio, then convert to the requested unit.",
+   "Coefficients do not directly give gram ratios.",
+   "Molar mass is used for mass-mole conversions."
+  ],
+  "23": [
+   "The limiting reactant is consumed first and determines the maximum amount of product.",
+   "An excess reactant remains after the limiting reactant is consumed.",
+   "Comparing starting masses alone does not identify the limiting reactant.",
+   "A reliable method is to calculate how much product each reactant could produce.",
+   "The smaller possible product amount identifies the limiting reactant."
+  ],
+  "24": [
+   "Theoretical yield is the maximum product predicted by stoichiometry from the limiting reactant.",
+   "Actual yield is the amount of product actually obtained experimentally.",
+   "Percent yield = (actual yield / theoretical yield) x 100%.",
+   "Percent yield below 100% can result from incomplete reaction, side reactions, or product loss.",
+   "A yield above 100% usually indicates contamination, residual solvent/water, measurement error, or another problem rather than creating extra matter."
+  ]
+ },
+ "myths": {
+  "1": [
+   "Ionic bonding is not simply one atom physically handing an electron to another; the bond is the attraction among ions.",
+   "A positive ion has lost electrons; it has not gained protons.",
+   "Ion charge is not the same as oxidation state in every context.",
+   "Cations are generally smaller than their parent atoms; anions are generally larger."
+  ],
+  "2": [
+   "Charges do not become subscripts without first reducing to the lowest whole-number ratio.",
+   "Subscripts describe ratios of ions, not the charges on individual ions.",
+   "Do not change the subscripts inside a polyatomic ion.",
+   "An ionic formula does not represent a single discrete molecule."
+  ],
+  "3": [
+   "Prefixes such as di- and tri- are generally not used to name ionic compounds.",
+   "A Roman numeral gives the metal ion charge, not its subscript.",
+   "Fixed-charge metals such as Na, Mg, and Al do not normally need Roman numerals.",
+   "Sulfide and sulfate are different ions."
+  ],
+  "4": [
+   "Covalent bonding does not require equal sharing of electrons.",
+   "A double bond is not twice as long as a single bond.",
+   "Shared electrons count toward the valence shells of both bonded atoms in a Lewis structure.",
+   "Bond strength and bond length generally change in opposite directions."
+  ],
+  "5": [
+   "Polar covalent bonds do not contain full +1 and -1 ionic charges.",
+   "A polar bond does not automatically make the entire molecule polar.",
+   "Electronegativity is not the same as electron affinity or ionization energy.",
+   "The more electronegative atom is partial negative, not partial positive."
+  ],
+  "6": [
+   "High melting point does not mean ionic solids contain stronger covalent bonds; the relevant forces are ion-ion attractions.",
+   "Electrical conductivity requires mobile charged particles.",
+   "Lattice energy depends on both ionic charge and distance.",
+   "Strong attraction does not make an ionic crystal flexible; shifting layers can bring like charges together and fracture the crystal."
+  ],
+  "7": [
+   "A negative charge means add electrons; a positive charge means subtract electrons.",
+   "Core electrons are not normally shown in Lewis structures.",
+   "Do not multiply the total by the number of bonds you expect to draw.",
+   "The total electron count is a bookkeeping constraint for the entire structure."
+  ],
+  "8": [
+   "Hydrogen never needs an octet.",
+   "The central atom is not automatically the atom written first in the formula.",
+   "A correct electron count alone does not guarantee the best Lewis structure.",
+   "Multiple bonds are introduced when needed to satisfy electron-counting and formal-charge considerations."
+  ],
+  "9": [
+   "Formal charge is not the same as an actual measured partial charge.",
+   "Formal charge is assigned after electrons are divided equally in each bond for bookkeeping.",
+   "The formal charges must sum to the species charge.",
+   "Zero formal charge is favorable but does not mean every atom in every stable species must have zero formal charge."
+  ],
+  "10": [
+   "Resonance structures are not different compounds.",
+   "The molecule does not oscillate back and forth between resonance drawings.",
+   "Atoms remain in the same positions/connectivity across resonance structures.",
+   "A resonance hybrid can have bond orders between whole-number single and double bonds."
+  ],
+  "11": [
+   "Not every octet-rule exception means the Lewis structure is wrong.",
+   "Hydrogen can never have eight valence-shell electrons in an ordinary Lewis structure.",
+   "Expanded-octet representations are not available to period-2 elements such as C, N, O, and F.",
+   "Odd-electron species necessarily leave at least one electron unpaired."
+  ],
+  "12": [
+   "Bond breaking is endothermic, not exothermic.",
+   "A stronger bond generally requires more energy to break.",
+   "Higher bond order generally means shorter, not longer, bonds.",
+   "Average bond enthalpy calculations are estimates because bond energies depend somewhat on molecular environment."
+  ],
+  "13": [
+   "Multiple bonds count as one domain, not two or three domains.",
+   "Electron geometry and molecular geometry are not always the same.",
+   "Lone pairs affect geometry even though they are not visible as bonded atoms.",
+   "VSEPR predicts geometry from repulsions, not from memorizing formula patterns alone."
+  ],
+  "14": [
+   "A molecule with four electron domains is not necessarily tetrahedral in molecular geometry.",
+   "Lone pairs occupy space and affect bond angles.",
+   "Bent molecules can arise from more than one electron-domain geometry.",
+   "Molecular geometry names generally ignore lone pairs when naming the arrangement of atoms."
+  ],
+  "15": [
+   "Polar bonds do not guarantee a polar molecule.",
+   "A molecule can have no net dipole because individual bond dipoles cancel.",
+   "Molecular polarity cannot be determined from electronegativity differences alone.",
+   "Symmetry is important, but the actual three-dimensional geometry must be considered."
+  ],
+  "16": [
+   "Hydrogen bonding does not occur simply because a molecule contains hydrogen.",
+   "Intermolecular forces are attractions between particles, not the covalent bonds within a molecule.",
+   "Nonpolar molecules still experience dispersion forces.",
+   "Stronger intermolecular forces do not mean stronger covalent bonds within each molecule."
+  ],
+  "17": [
+   "Hybridization is a bonding model, not a physical mixing process that can be directly observed as orbitals stirring together.",
+   "A double bond is not two sigma bonds.",
+   "Lone pairs count when determining the number of electron domains and common hybridization.",
+   "Pi bonds arise from side-by-side overlap of unhybridized orbitals."
+  ],
+  "18": [
+   "Bond order is not simply the total number of bonding electrons.",
+   "Antibonding electrons reduce bond order.",
+   "Paramagnetism results from unpaired electrons, not merely from molecular polarity.",
+   "Molecular orbitals can extend over more than two atoms in a molecule."
+  ],
+  "19": [
+   "Coefficients multiply the entire formula; subscripts belong to the substance itself.",
+   "Balancing an equation does not change the identities of reactants or products.",
+   "A balanced equation conserves each type of atom, not necessarily the number of molecules.",
+   "The arrow means yields/produces, not equals in a mathematical sense."
+  ],
+  "20": [
+   "Never balance by changing a compound's subscripts.",
+   "A coefficient of 1 is normally omitted but still understood.",
+   "Balanced coefficients describe ratios, not necessarily the actual amount present in a particular experiment.",
+   "Always verify every element after balancing."
+  ],
+  "21": [
+   "Classification is based on the pattern of reactants and products, not just the presence of oxygen.",
+   "Combustion does not always mean a substance visibly burns with a flame.",
+   "Predict formulas first, then balance with coefficients.",
+   "A balanced but chemically impossible product prediction is still incorrect."
+  ],
+  "22": [
+   "Coefficients are mole ratios, not mass ratios.",
+   "Do not use an unbalanced equation for stoichiometry.",
+   "Moles are the bridge between substances in reaction calculations.",
+   "The limiting reactant must be considered when amounts of more than one reactant are supplied."
+  ],
+  "23": [
+   "Limiting reactant depends on stoichiometric ratios, not simply mass or moles alone.",
+   "An excess reactant is not completely consumed.",
+   "The limiting reactant does not have to have the smallest coefficient.",
+   "Theoretical yield is based on the limiting reactant."
+  ],
+  "24": [
+   "Theoretical yield is not what is actually collected; it is the predicted maximum.",
+   "Percent yield is not percent error.",
+   "An apparent yield over 100% does not mean the reaction violated conservation of mass.",
+   "Use the limiting reactant to calculate theoretical yield."
+  ]
+ }
+}

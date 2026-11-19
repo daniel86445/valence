@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { SaveData, Settings as S } from './engine/types';
 import { levelOf, merge, newSave, totalXp, xpForLevel, type RunState } from './engine/engine';
+import { worldInfo } from './engine/registry';
 import { loadLocal, normalize, saveLocal, deviceId } from './game/save';
 import { pull, push, signIn, signOutUser, syncAvailable, watchUser, type SyncUser } from './game/sync';
 import { setSound, sfx } from './game/sfx';
@@ -10,7 +11,7 @@ import { Results } from './screens/Results';
 import { Cards } from './screens/Cards';
 import { Settings } from './screens/Settings';
 
-type Screen = { name: 'home' } | { name: 'run'; boss: boolean; key: number } | { name: 'results'; run: RunState; boss: boolean } | { name: 'cards' } | { name: 'settings' };
+type Screen = { name: 'home' } | { name: 'run'; boss: boolean; world: string; key: number } | { name: 'results'; run: RunState; boss: boolean } | { name: 'cards' } | { name: 'settings' };
 
 export default function App() {
   const [save, setSave] = useState<SaveData>(loadLocal);
@@ -59,7 +60,8 @@ export default function App() {
 
   const onSettings = (p: Partial<S>) => update({ ...saveRef.current, settings: { ...saveRef.current.settings, ...p }, updatedAt: Date.now() });
 
-  const play = useCallback((boss = false) => { sfx.tap(); setScreen({ name: 'run', boss, key: Date.now() }); }, []);
+  const world = save.settings.lastWorld && worldInfo(save.settings.lastWorld)?.status === 'built' ? save.settings.lastWorld : 'w1';
+  const play = useCallback((boss = false) => { sfx.tap(); setScreen({ name: 'run', boss, world, key: Date.now() }); }, [world]);
   const goHome = useCallback(() => setScreen({ name: 'home' }), []);
 
   const xp = totalXp(save);
@@ -74,6 +76,7 @@ export default function App() {
           key={screen.key}
           save={save}
           boss={screen.boss}
+          world={screen.world}
           onSave={update}
           onQuit={goHome}
           onDone={(run) => setScreen({ name: 'results', run, boss: screen.boss })}
@@ -101,7 +104,7 @@ export default function App() {
             </div>
           </header>
           <main>
-            {screen.name === 'home' && <Home save={save} onPlay={() => play(false)} onBoss={() => play(true)} />}
+            {screen.name === 'home' && <Home save={save} world={world} onWorld={(id) => onSettings({ lastWorld: id })} onPlay={() => play(false)} onBoss={() => play(true)} />}
             {screen.name === 'cards' && <Cards save={save} />}
             {screen.name === 'settings' && (
               <Settings
